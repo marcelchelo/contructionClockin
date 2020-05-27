@@ -1,1 +1,6 @@
-console.log('My computer name is '+process.env.COMPUTERNAME)
+echo("Echo!!",10)
+
+function echo(str, num){
+    for (var i =1 ;i <=num ; i++)
+    console.log(str);
+}
