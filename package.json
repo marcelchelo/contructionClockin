@@ -1,0 +1,22 @@
+{
+  "name": "contructionclockin",
+  "version": "1.0.0",
+  "description": "WebApplication for contractors to check employee hours, location,",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelchelo/contructionClockin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcelchelo/contructionClockin/issues"
+  },
+  "homepage": "https://github.com/marcelchelo/contructionClockin#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
