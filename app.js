@@ -67,7 +67,7 @@ app.post('/employees', (req, res) => {
             lastName: req.body.lastName
         });
     }else{
-        res.render('passed');
+        res.send('passed');
     }
 });
 
