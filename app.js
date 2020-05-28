@@ -41,17 +41,17 @@ app.get('/users/login', (req, res)=>{
 })
 
 //Add Employee Form
-app.get('/employees/add', (req,res)=>{
-    res.render('employees/add');
+app.get('/business/add', (req,res)=>{
+    res.render('business/add');
 })
 
 //Edit Employee Form
-app.get('/employees/edit', (req,res)=>{
-    res.render('employees/edit');
+app.get('/business/edit', (req,res)=>{
+    res.render('business/edit');
 })
 
 //Process Form
-app.post('/employees', (req, res) => {
+app.post('/business', (req, res) => {
     let errors = [];
 
     if(!req.body.firstName){
@@ -61,7 +61,7 @@ app.post('/employees', (req, res) => {
         errors.push({text:'Please add Last Name'});
     }
     if(errors.length>0){
-        res.render('employees/add', {
+        res.render('business/add', {
             errors: errors,
             firstName: req.body.firstName,
             lastName: req.body.lastName

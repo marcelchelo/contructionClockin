@@ -6,12 +6,14 @@
 
 <div class="container-fluid card">
     <h3>Tell us about your business</h3>
-    <form action="/employees" method="POST">
+    <form action="/business" method="POST">
         <div class="form-group">
             <label for="firstName">Business Name</label>
             <input type="text" class="form-control" name="firstName">
         </div>
         <div class="form-group">
+
+            <<!--We need some client/server validation to make sure they write emails @   .com   -->>
             <label for="lastName">Email</label>
             <input type="text" class="form-control" name="lastName">
         </div>
