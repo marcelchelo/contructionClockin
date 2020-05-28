@@ -1,6 +1,9 @@
-echo("Echo!!",10)
+const express = require('express');
 
-function echo(str, num){
-    for (var i =1 ;i <=num ; i++)
-    console.log(str);
-}
+const app = express();
+
+const port = 5000;
+
+app.listen(port,()=>{
+    console.log(`Server started on port ${port}`);
+});
