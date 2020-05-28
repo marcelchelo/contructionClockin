@@ -4,17 +4,17 @@
 
 {{/each}}
 
-<div class="card card-body">
-    <h3>Employee</h3>
+<div class="container-fluid card">
+    <h3>Tell us about your business</h3>
     <form action="/employees" method="POST">
         <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label for="firstName">Business Name</label>
             <input type="text" class="form-control" name="firstName">
         </div>
         <div class="form-group">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">Email</label>
             <input type="text" class="form-control" name="lastName">
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
