@@ -1,7 +1,9 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const path = require('path')
+const path = require('path');
+const mysql  = require('mysql')
+
 
 const app = express();
 
@@ -23,10 +25,10 @@ app.set('view engine', 'handlebars');
 
 
 //Index route
-app.get('/',(req, res)=>{
-    const title = 'Welcome'
+app.get('/',(req, res)=> {
+    const WelcomeMessage = 'Welcome'
     res.render('index',{
-        title: title
+        message: WelcomeMessage
     });
 });
 
@@ -38,6 +40,7 @@ app.get('/about', (req,res)=>{
 // User login route
 app.get('/users/login', (req, res)=>{
     res.render('users/login');
+    console.log("At the login page")
 })
 
 //Add Employee Form
@@ -69,6 +72,12 @@ app.post('/business', (req, res) => {
     }else{
         res.send('Thank You');
     }
+
+
+    app.get('/user')
+
+
+
 });
 
 
