@@ -43,7 +43,7 @@ app.get('/users/login', (req, res)=>{
     console.log("At the login page")
 })
 
-//Add Employee Form
+//Add Business Form
 app.get('/business/add', (req,res)=>{
     res.render('business/add');
 })
@@ -53,32 +53,18 @@ app.get('/business/edit', (req,res)=>{
     res.render('business/edit');
 })
 
-//Process Form
+//Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
-    let errors = [];
-
-    if(!req.body.firstName){
-        errors.push({text:'Please add First Name'});
-    }
-    if(!req.body.lastName){
-        errors.push({text:'Please add Last Name'});
-    }
-    if(errors.length>0){
-        res.render('business/add', {
-            errors: errors,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        });
-    }else{
-        res.send('Thank You');
-    }
-
-
-    app.get('/user')
+    
+    
+   //res.send('Check your email for verification code.');
+   res.render('business/confirmation')
+ 
 
 
 
 });
+
 
 
 const port = 3000;
