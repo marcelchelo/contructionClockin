@@ -8,6 +8,22 @@ const mysql  = require('mysql')
 const app = express();
 
 
+const db = mysql.createConnection({
+    host     : 'signinsheet.cqux98yjiyd6.us-east-1.rds.amazonaws.com',
+    user     : 'marcelo',
+    password : 'Gh1$1995',
+    database : 'SignInSheet'
+});
+
+//connect DB
+db.connect((err) => {
+    if(err){
+        console.log("Couldnt reach DB")
+    }
+    console.log("MSQL connected")
+})
+
+
 //Static folder
 app.use(express.static(path.join(__dirname, 'public')))
 
