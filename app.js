@@ -9,16 +9,16 @@ const app = express();
 
 
 const db = mysql.createConnection({
-    host     : 'signinsheet.cqux98yjiyd6.us-east-1.rds.amazonaws.com',
-    user     : 'marcelo',
-    password : 'Gh1$1995',
-    database : 'SignInSheet'
+    host     : 'localhost',
+    user     : 'root',
+    password : 'GH1$1995py',
+    database : 'mbarete'
 });
 
 //connect DB
 db.connect((err) => {
     if(err){
-        console.log("Couldnt reach DB")
+        throw err;
     }
     console.log("MSQL connected")
 })
