@@ -3,16 +3,17 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mysql  = require('mysql')
+require('dotenv').config()
 
 
 const app = express();
 
 
 const db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'GH1$1995py',
-    database : 'mbarete'
+    host     : process.env.DB_HOST,
+    user     : process.env.DB_USER,
+    password : process.env.DB_PASS,
+    database : process.env.DB_SCHEMA
 });
 
 //connect DB
@@ -80,6 +81,20 @@ app.post('/business', (req, res) => {
 
 
 });
+
+app.get('/workers', (req,res) =>{
+
+    db.query('select * from worker',(err,rows,fields) =>{
+        if(err) {
+            console.log("Failed to query the workers tbale" + err)
+        }
+        res.json(rows)
+    })    
+
+
+//res.end()
+
+})
 
 
 
