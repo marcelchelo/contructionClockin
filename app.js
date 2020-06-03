@@ -8,7 +8,6 @@ require('dotenv').config()
 
 const app = express();
 
-
 const db = mysql.createConnection({
     host     : process.env.DB_HOST,
     user     : process.env.DB_USER,
@@ -98,7 +97,7 @@ app.get('/workers', (req,res) =>{
 
 
 
-const port = 3000;
+const port =process.env.PORT || 3000;
 
 app.listen(port,()=>{
     console.log(`Server started on port ${port}`);
