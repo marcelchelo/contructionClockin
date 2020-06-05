@@ -60,13 +60,8 @@ app.get('/users/login', (req, res)=>{
 })
 
 //Add Business Form
-app.get('/business/add', (req,res)=>{
+app.get('/business/new', (req,res)=>{
     res.render('business/add');
-})
-
-//Edit Employee Form
-app.get('/business/edit', (req,res)=>{
-    res.render('business/edit');
 })
 
 //Confirmation. The form still has to be sent to database. 
