@@ -75,12 +75,11 @@ app.post('/business', (req, res) => {
                         email: req.body.email, 
                         industry: req.body.industry }
     let sql ='INSERT INTO company SET ?';
-    let query = db.query(sql, companyData, (err,result)=>{
+    let query = db.query(sql, companyData, (err,results)=>{
     if(err) throw err;
-    console.log(result);
-    res.send('company inserted...');
+    console.log(results + ' were inserted');
                         });
-   //res.render('business/confirmation')
+   res.render('business/confirmation')
  
 
 
