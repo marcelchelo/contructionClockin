@@ -71,10 +71,16 @@ app.get('/business/edit', (req,res)=>{
 
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
-    
-    
-   //res.send('Check your email for verification code.');
-   res.render('business/confirmation')
+    let companyData = {businessName : req.body.businessName, 
+                        email: req.body.email, 
+                        industry: req.body.industry }
+    let sql ='INSERT INTO company SET ?';
+    let query = db.query(sql, companyData, (err,result)=>{
+    if(err) throw err;
+    console.log(result);
+    res.send('company inserted...');
+                        });
+   //res.render('business/confirmation')
  
 
 
