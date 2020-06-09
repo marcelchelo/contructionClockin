@@ -2,19 +2,20 @@
     <h3>Tell us about your business</h3>
     <form action="/business" method="POST">
         <div class="form-group">
-            <label for="BusinessName" > Business Name</label>
-            <input type="text" class="form-control" id="businessName" required="required">
+            <label for="businessName" > Business Name</label>
+            <input type="text" class="form-control" name="businessName" required="required">
         </div>
         <div class="form-group">
 
             <!--We need some client/server validation to make sure they write emails @   .com   -->
             <label for="email">Email address</label>
-            <input type="email"  maxLength="64" class="form-control" id="email" required="required" placeholder="youremail@company.com" >
+            <input type="email"  maxLength="64" class="form-control" name="email" required="required" placeholder="youremail@company.com" >
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group"> 
             <label for="industry">Industry</label>
-            <input type="text" class="form-control" id="industry" placeholder="gardening, construccion, housekeeping " > 
+            <input type="text" class="form-control"
+            placeholder="gardening, construccion, housekeeping " name="industry" > 
 
         </div>
         <div>
