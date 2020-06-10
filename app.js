@@ -48,9 +48,9 @@ app.get('/',(req, res)=> {
     });
 });
 
-//About route
-app.get('/about', (req,res)=>{
-    res.render('about');
+//Create Account
+app.get('/create_Account', (req,res)=>{
+    res.render('createUser');
 })
 
 // User login route
