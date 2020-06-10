@@ -50,7 +50,7 @@ app.get('/',(req, res)=> {
 
 //Create Account
 app.get('/create_Account', (req,res)=>{
-    res.render('createUser');
+    res.render('users/createUser');
 })
 
 // User login route
