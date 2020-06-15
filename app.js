@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const app = express();
 
+
 const db = mysql.createConnection({
     host     : process.env.DB_HOST,
     user     : process.env.DB_USER,
@@ -48,7 +49,7 @@ app.get('/',(req, res)=> {
     });
 });
 
-//Create Account
+//Create Account form
 app.get('/create_Account', (req,res)=>{
     res.render('users/createUser');
 })
@@ -73,13 +74,32 @@ app.post('/business', (req, res) => {
                         idUser : '1'}
     let sql ='INSERT INTO company SET ?';
     let query = db.query(sql, companyData, (err,results)=>{
-    if(err) throw err;
-    console.log(results + 'were inserted');
+        if(err) throw err;
+        console.log(results + 'were inserted');
                         });
    res.render('business/confirmation')
  
 });
 
+
+//New Account POST request
+app.post('/newAccount',(req,res) => {
+    let accountData = { email : req.body.email,
+                        password : req.body.password,
+                        type : 'business' }
+    
+    let sql = 'INSERT INTO user SET ?';
+    let query = db.query(sql, accountData, (err,results) => {
+        if (err) throw err;
+        console.log(results + 'were inserted');
+                        });
+
+                
+    }
+
+);
+
+//list workers on database
 app.get('/workers', (req,res) =>{
 
     db.query('select * from worker',(err,rows,fields) =>{
