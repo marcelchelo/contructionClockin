@@ -87,7 +87,7 @@ app.post('/newAccount',(req,res) => {
     let accountData = { email : req.body.email,
                         password : req.body.password,
                         type : 'business' }
-    
+
     let sql = 'INSERT INTO user SET ?';
     let query = db.query(sql, accountData, (err,results) => {
         if (err) throw err;
