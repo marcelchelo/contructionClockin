@@ -94,7 +94,7 @@ app.post('/newAccount',(req,res) => {
         console.log(results + 'were inserted');
                         });
 
-                
+        res.send('inserted')  
     }
 
 );
