@@ -74,13 +74,10 @@ app.post('/business', (req, res) => {
     let sql ='INSERT INTO company SET ?';
     let query = db.query(sql, companyData, (err,results)=>{
     if(err) throw err;
-    console.log(results + ' were inserted');
+    console.log(results + 'were inserted');
                         });
    res.render('business/confirmation')
  
-
-
-
 });
 
 app.get('/workers', (req,res) =>{
