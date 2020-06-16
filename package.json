@@ -18,11 +18,11 @@
   "homepage": "https://github.com/marcelchelo/contructionClockin#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "code-gen": "0.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "randomatic": "^3.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

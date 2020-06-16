@@ -2,8 +2,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
-const mysql  = require('mysql');
-const codeGen =require("random-code-gen")
+const randomize = require("randomatic");
+const mysql  = require('mysql')
 
 
 
@@ -72,7 +72,7 @@ app.get('/business/new', (req,res)=>{
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
 
-let code = codeGen.random(5);
+let code = randomize('A0',5);
 
 
     let companyData = { companyCode : code,
