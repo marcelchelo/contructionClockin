@@ -7,6 +7,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const mysql  = require('mysql')
+const randomize = require('randomatic')
 require('dotenv').config()
 const {ensureAuthenticated} = require('./helpers/auth')
 
@@ -93,9 +94,14 @@ app.get('/business/new', (req,res)=>{
     res.render('business/add');
 })
 
+
+
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
-    let companyData = { companyCode : '74huifgy2',
+
+    let code = randomize('A0',5);
+
+    let companyData = { companyCode : code,
                         businessName : req.body.businessName, 
                         email: req.body.email, 
                         industry: req.body.industry, 
