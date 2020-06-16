@@ -2,7 +2,11 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
+const randomize = require("randomatic");
 const mysql  = require('mysql')
+
+
+
 require('dotenv').config()
 
 
@@ -68,11 +72,10 @@ app.get('/business/new', (req,res)=>{
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
 
-//we need to generate with javascript a company code and pass it to the database.
+let code = randomize('A0',5);
 
 
-
-    let companyData = { companyCode : '74huifgy2',
+    let companyData = { companyCode : code,
                         businessName : req.body.businessName, 
                         email: req.body.email, 
                         industry: req.body.industry, 
@@ -91,24 +94,20 @@ app.post('/business', (req, res) => {
 
 //New Account POST request
 app.post('/newAccount',(req,res) => {
-    let accountData = { email : req.body.email,
+        let accountData = { email : req.body.email,
                         password : req.body.password,
                         type : req.body.accType }
 
-    let sql = 'INSERT INTO user SET ?';
-    let query = db.query(sql, accountData, (err,results) => {
-        if (err) throw err;
-        console.log(results + 'were inserted');
+        let sql = 'INSERT INTO user SET ?';
+        let query = db.query(sql, accountData, (err,results) => {
+            if (err) throw err;
+            console.log(results + 'were inserted');
                         });
 
-                
-    }
-
-);
+    res.send("registered")
+    });
 
 //USERTS API
-
-
 app.get("/users", (req,res) =>{
 
     db.query('select email from user',(err,rows,fields) =>{
