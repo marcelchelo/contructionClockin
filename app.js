@@ -106,22 +106,38 @@ app.post('/newAccount',(req,res) => {
     let errors = [];
 
     if(req.body.password != req.body.password2){
-        errors.push({text: 'Password do not match'})
+        errors.push({text: 'Password does not match'})
     }
-    let accountData = { email : req.body.email,
-                        password : req.body.password,
-                        type : 'business' }
+    if(req.body.password.length < 4){
+        errors.push({text: 'Password must be at least 4 characters'})
+    }
+
+    if(errors.length > 0){
+        res.render('users/createUser', {
+            errors: errors,
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            password2: req.body.password2
+        });
+    }else{
+        let accountData = { email : req.body.email,
+            password : req.body.password,
+            type : 'business' }
 
     let sql = 'INSERT INTO user SET ?';
     let query = db.query(sql, accountData, (err,results) => {
-        if (err) throw err;
-        console.log(results + 'were inserted');
-                        });
-        req.flash('success_msg', 'User created');
-        res.render('users/createUser')  
-    }
+    if (err) throw err;
+    console.log(results + 'were inserted');
+            });
+    req.flash('success_msg', 'User created');
+    res.render('users/createUser')
+        }
 
-);
+         
+    });
+     
+   
 
 //list workers on database
 app.get('/workers', (req,res) =>{
