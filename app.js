@@ -2,6 +2,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
 const mysql  = require('mysql')
 require('dotenv').config()
 
@@ -39,6 +41,23 @@ app.use(bodyParser.json())
 
 
 app.set('view engine', 'handlebars');
+
+//Express session middleware
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  }));
+
+  app.use(flash());
+
+  //Global variables
+  app.use(function(req, res, next){
+        res.locals.success_msg = req.flash('success_msg');
+        res.locals.error_msg = req.flash('error_msg');
+        res.locals.error =req.flash('error');
+        next();
+  });
 
 
 //Index route
@@ -84,6 +103,11 @@ app.post('/business', (req, res) => {
 
 //New Account POST request
 app.post('/newAccount',(req,res) => {
+    let errors = [];
+
+    if(req.body.password != req.body.password2){
+        errors.push({text: 'Password do not match'})
+    }
     let accountData = { email : req.body.email,
                         password : req.body.password,
                         type : 'business' }
@@ -93,8 +117,8 @@ app.post('/newAccount',(req,res) => {
         if (err) throw err;
         console.log(results + 'were inserted');
                         });
-
-        res.send('inserted')  
+        req.flash('success_msg', 'User created');
+        res.render('users/createUser')  
     }
 
 );
