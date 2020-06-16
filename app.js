@@ -67,11 +67,18 @@ app.get('/business/new', (req,res)=>{
 
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
+
+//we need to generate with javascript a company code and pass it to the database.
+
+
+
     let companyData = { companyCode : '74huifgy2',
                         businessName : req.body.businessName, 
                         email: req.body.email, 
                         industry: req.body.industry, 
-                        idUser : '1'}
+                        idUser : '1',
+                           
+                    }
     let sql ='INSERT INTO company SET ?';
     let query = db.query(sql, companyData, (err,results)=>{
         if(err) throw err;
@@ -86,7 +93,7 @@ app.post('/business', (req, res) => {
 app.post('/newAccount',(req,res) => {
     let accountData = { email : req.body.email,
                         password : req.body.password,
-                        type : 'business' }
+                        type : req.body.accType }
 
     let sql = 'INSERT INTO user SET ?';
     let query = db.query(sql, accountData, (err,results) => {
@@ -99,12 +106,14 @@ app.post('/newAccount',(req,res) => {
 
 );
 
-//list workers on database
-app.get('/workers', (req,res) =>{
+//USERTS API
 
-    db.query('select * from worker',(err,rows,fields) =>{
+
+app.get("/users", (req,res) =>{
+
+    db.query('select email from user',(err,rows,fields) =>{
         if(err) {
-            console.log("Failed to query the workers tbale" + err)
+            console.log("Failed to query the user table" + err)
         }
         res.json(rows)
     })    
@@ -113,8 +122,6 @@ app.get('/workers', (req,res) =>{
 //res.end()
 
 })
-
-
 
 const port =process.env.PORT || 3000;
 
