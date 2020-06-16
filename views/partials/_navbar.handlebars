@@ -9,10 +9,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 
                 <ul class="navbar-nav ml-auto">
+                    {{#if user}}
+                    <li class="nav-item">
+                        <a href="/logout" 
+                        class="nav-link">Logout</a>
+                    </li>
+                    {{else}}
                     <li class="nav-item">
                         <a href="/users/login" 
                         class="nav-link">Login</a>
                     </li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

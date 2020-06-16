@@ -4,12 +4,17 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
 const mysql  = require('mysql')
 require('dotenv').config()
-
+const {ensureAuthenticated} = require('./helpers/auth')
 
 const app = express();
 
+
+//Passport Config
+require('./config/passport')(passport)
 
 const db = mysql.createConnection({
     host     : process.env.DB_HOST,
@@ -49,6 +54,10 @@ app.use(session({
     saveUninitialized: true
   }));
 
+  //Passport middleware
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(flash());
 
   //Global variables
@@ -56,6 +65,7 @@ app.use(session({
         res.locals.success_msg = req.flash('success_msg');
         res.locals.error_msg = req.flash('error_msg');
         res.locals.error =req.flash('error');
+        res.locals.user = req.user || null;
         next();
   });
 
@@ -76,7 +86,6 @@ app.get('/create_Account', (req,res)=>{
 // User login route
 app.get('/users/login', (req, res)=>{
     res.render('users/login');
-    console.log("At the login page")
 })
 
 //Add Business Form
@@ -121,22 +130,60 @@ app.post('/newAccount',(req,res) => {
             password2: req.body.password2
         });
     }else{
-        let accountData = { email : req.body.email,
-            password : req.body.password,
-            type : 'business' }
+        
+        let sql =`SELECT * FROM  user WHERE email = '${req.body.email}'`;
+        let query = db.query(sql, (err,result)=>{
+            if(err) throw err;
+            if(result.length > 0){
+                req.flash('error_msg', 'Email already registered');
+                res.redirect('/create_Account');    
+            }else{
+                let accountData = { email : req.body.email,
+                    password : req.body.password,
+                    type : 'business' }
+                    bcrypt.genSalt(10, (err, salt)=>{
+                        bcrypt.hash(accountData.password, salt, (err, hash)=>{
+                            if(err) throw err;
+                            accountData.password = hash;
+                            let sql = 'INSERT INTO user SET ?';
+                            let query = db.query(sql, accountData, (err,results) => {
+                            if (err) throw err;
+                            console.log(results + 'were inserted');
+                                });
+                            req.flash('success_msg', 'User created');
+                            res.redirect('/create_Account')
+                        });
+        
+                    });
+            }
+        });
 
-    let sql = 'INSERT INTO user SET ?';
-    let query = db.query(sql, accountData, (err,results) => {
-    if (err) throw err;
-    console.log(results + 'were inserted');
-            });
-    req.flash('success_msg', 'User created');
-    res.render('users/createUser')
         }
 
          
     });
-     
+
+//Login form POST  
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/loginPage',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
+})
+   
+
+// Login User Page
+app.get('/loginPage', ensureAuthenticated, (req, res)=>{
+    res.render('users/loginPage');
+})
+
+//Logout User
+app.get('/logout', (req, res)=>{
+    req.logOut();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect('/users/login')
+})
    
 
 //list workers on database
