@@ -148,7 +148,6 @@ app.post('/newAccount',(req,res) => {
                             let sql = 'INSERT INTO user SET ?';
                             let query = db.query(sql, accountData, (err,results) => {
                             if (err) throw err;
-                            console.log(results + 'were inserted');
                                 });
                             req.flash('success_msg', 'User created');
                             res.redirect('/create_Account')
