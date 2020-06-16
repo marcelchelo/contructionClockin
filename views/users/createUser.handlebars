@@ -1,0 +1,29 @@
+<h1>create user</h1>
+
+<div class="container">
+    <form  action="/newAccount"  method="POST">
+        <div class="form-group">
+            <label for="email" >Email</label>
+            <input type="email"  maxLength="64" class="form-control" name="email" required="required" placeholder="youremail@company.com" >
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="password" >Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <label for="accType">Which one are you?</label>
+            <select class="form-control" name="accType">
+                 <option>Business/Negocio</option>
+                 <option>Employee/Empleado</option>
+             </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Submit</button>
+        
+    </form>
+
+
+</div>

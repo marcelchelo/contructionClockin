@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const app = express();
 
+
 const db = mysql.createConnection({
     host     : process.env.DB_HOST,
     user     : process.env.DB_USER,
@@ -48,9 +49,9 @@ app.get('/',(req, res)=> {
     });
 });
 
-//About route
-app.get('/about', (req,res)=>{
-    res.render('about');
+//Create Account form
+app.get('/create_Account', (req,res)=>{
+    res.render('users/createUser');
 })
 
 // User login route
@@ -60,39 +61,59 @@ app.get('/users/login', (req, res)=>{
 })
 
 //Add Business Form
-app.get('/business/add', (req,res)=>{
+app.get('/business/new', (req,res)=>{
     res.render('business/add');
-})
-
-//Edit Employee Form
-app.get('/business/edit', (req,res)=>{
-    res.render('business/edit');
 })
 
 //Confirmation. The form still has to be sent to database. 
 app.post('/business', (req, res) => {
+
+//we need to generate with javascript a company code and pass it to the database.
+
+
+
     let companyData = { companyCode : '74huifgy2',
                         businessName : req.body.businessName, 
                         email: req.body.email, 
                         industry: req.body.industry, 
-                        idUser : '1'}
+                        idUser : '1',
+                           
+                    }
     let sql ='INSERT INTO company SET ?';
     let query = db.query(sql, companyData, (err,results)=>{
-    if(err) throw err;
-    console.log(results + ' were inserted');
+        if(err) throw err;
+        console.log(results + 'were inserted');
                         });
    res.render('business/confirmation')
  
-
-
-
 });
 
-app.get('/workers', (req,res) =>{
 
-    db.query('select * from worker',(err,rows,fields) =>{
+//New Account POST request
+app.post('/newAccount',(req,res) => {
+    let accountData = { email : req.body.email,
+                        password : req.body.password,
+                        type : req.body.accType }
+
+    let sql = 'INSERT INTO user SET ?';
+    let query = db.query(sql, accountData, (err,results) => {
+        if (err) throw err;
+        console.log(results + 'were inserted');
+                        });
+
+                
+    }
+
+);
+
+//USERTS API
+
+
+app.get("/users", (req,res) =>{
+
+    db.query('select email from user',(err,rows,fields) =>{
         if(err) {
-            console.log("Failed to query the workers tbale" + err)
+            console.log("Failed to query the user table" + err)
         }
         res.json(rows)
     })    
@@ -101,8 +122,6 @@ app.get('/workers', (req,res) =>{
 //res.end()
 
 })
-
-
 
 const port =process.env.PORT || 3000;
 
