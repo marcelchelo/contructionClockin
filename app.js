@@ -96,24 +96,24 @@ app.get('/business/new', (req,res)=>{
 
 
 
-//Confirmation. The form still has to be sent to database. 
+// Provide Business Details, Genertate company code.
 app.post('/business', (req, res) => {
 
     let code = randomize('A0',5);
 
     let companyData = { companyCode : code,
                         businessName : req.body.businessName, 
-                        email: req.body.email, 
                         industry: req.body.industry, 
-                        idUser : '1',
+                        idUser : '33',
                            
                     }
     let sql ='INSERT INTO company SET ?';
     let query = db.query(sql, companyData, (err,results)=>{
+        //ALSO IF COMPANY CODE is already in DATABASE, GENERATE ANOTHER.
         if(err) throw err;
         console.log(results + 'were inserted');
                         });
-   res.render('business/confirmation')
+   res.send("Business was Added. Your Company code is " + code + " Give it to yor Employees")
  
 });
 
@@ -143,7 +143,7 @@ app.post('/newAccount',(req,res) => {
         let query = db.query(sql, (err,result)=>{
             if(err) throw err;
             if(result.length > 0){
-                req.flash('error_msg', 'Email already registered');
+                req.flash('error_msg', 'Email already registered. Recover your password here');
                 res.redirect('/create_Account');    
             }else{
                 let accountData = { email : req.body.email,
@@ -158,17 +158,18 @@ app.post('/newAccount',(req,res) => {
                             if (err) throw err;
                                 });
                             req.flash('success_msg', 'User created');
-                            res.redirect('/create_Account')
+                            //res.redirect('/create_Account')
                         });
         
                     });
             }
         });
 
-        }
-
+    }
+    //change the name of this route and its  location.  Put it in user and call it USER confirmation
+    res.render('users/confirmation')
          
-    });
+});
 
 //Login form POST  
 app.post('/login', (req, res, next) => {
