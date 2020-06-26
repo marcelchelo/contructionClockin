@@ -13,6 +13,7 @@ const {ensureAuthenticated} = require('./helpers/auth')
 
 const app = express();
 
+const router = require("./Router/user")
 
 //Passport Config
 require('./config/passport')(passport)
@@ -193,20 +194,6 @@ app.get('/logout', (req, res)=>{
 })
    
 
-//USERTS API
-app.get("/users", (req,res) =>{
-
-    db.query('select email from user',(err,rows,fields) =>{
-        if(err) {
-            console.log("Failed to query the user table" + err)
-        }
-        res.json(rows)
-    })    
-
-
-//res.end()
-
-})
 
 const port =process.env.PORT || 3000;
 
