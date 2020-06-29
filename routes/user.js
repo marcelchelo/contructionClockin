@@ -1,10 +1,10 @@
-//will contain all of user related routes.  EX.  Login, Sign UP, Sign Out
+//will contain all of user related routes.  EX.  Login, Sign UP, Sign Out, create user too. 
 //Add New Employees
 
 const express =require('express')
 const router = express.Router()
 //const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
+//const exphbs = require('express-handlebars');
 const mysql = require('mysql')
 const randomize = require('randomatic')
 const passport = require('passport');
