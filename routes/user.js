@@ -111,6 +111,7 @@ router.post('/user/newAccount',(req,res) => {
             password2: req.body.password2
         });
     }else{
+    
         //When email exists we do not get notified it does
         //when email exists and we try to sign up(1) No notification (2) We try new email, notification of email in use appears. Corresponding to first email. 
 
@@ -119,11 +120,12 @@ router.post('/user/newAccount',(req,res) => {
             if(err) throw err;
             if(result.length > 0){
                 req.flash('error_msg', 'Email already in use');
-                res.redirect('/user/createAccount');    
+                res.render('users/createUser')
+                //res.redirect('/user/createAccount');  USE render to display message   
             }else{
                 let accountData = { email : req.body.email,
                     password : req.body.password,
-                    type : 'business' }
+                    type : req.body.accType }
                     bcrypt.genSalt(10, (err, salt)=>{
                         bcrypt.hash(accountData.password, salt, (err, hash)=>{
                             if(err) throw err;
@@ -133,8 +135,9 @@ router.post('/user/newAccount',(req,res) => {
                             if (err) throw err;
                                 });
                             req.flash('success_msg', 'User created');
+                            //let code = randomize('A0',5);
                             res.render('business/confirmation')
-                           // res.redirect('/user/createAccount')
+                           
                         });
         
                     });
