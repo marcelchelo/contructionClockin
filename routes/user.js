@@ -119,13 +119,17 @@ router.post('/user/newAccount',(req,res) => {
         let query = pool.query(sql, (err,result)=>{
             if(err) throw err;
             if(result.length > 0){
+                
+               
                 req.flash('error_msg', 'Email already in use');
+                //res.redirect('/user/createAccount');  //USE render to display message   
                 res.render('users/createUser')
-                //res.redirect('/user/createAccount');  USE render to display message   
+                
             }else{
                 let accountData = { email : req.body.email,
                     password : req.body.password,
                     type : req.body.accType }
+
                     bcrypt.genSalt(10, (err, salt)=>{
                         bcrypt.hash(accountData.password, salt, (err, hash)=>{
                             if(err) throw err;
@@ -135,8 +139,12 @@ router.post('/user/newAccount',(req,res) => {
                             if (err) throw err;
                                 });
                             req.flash('success_msg', 'User created');
+                            
+                            //Generate Code and store it in Database when Accont is created.   Dont tell user. 
                             //let code = randomize('A0',5);
-                            res.render('business/confirmation')
+                            
+                            let email = accountData.email
+                            res.render('business/confirmation', { email})
                            
                         });
         
@@ -148,8 +156,6 @@ router.post('/user/newAccount',(req,res) => {
 
          
 });
-
-  
 
 //Add Business Form
 router.get('/user/newBusiness', (req,res)=>{
