@@ -120,11 +120,9 @@ router.post('/user/newAccount',(req,res) => {
             if(err) throw err;
             if(result.length > 0){
                 
-               
                 req.flash('error_msg', 'Email already in use');
-                //res.redirect('/user/createAccount');  //USE render to display message   
-                res.render('users/createUser')
-                
+               // res.redirect('/user/createAccount');  //USE render to display message   
+                res.render('users/createUser')     
             }else{
                 let accountData = { email : req.body.email,
                     password : req.body.password,
