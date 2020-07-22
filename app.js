@@ -2,9 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
-//const session = require('express-session');
-// const bcrypt = require('bcryptjs');
-//const passport = require('passport');
+
 const mysql  = require('mysql')
 
 require('dotenv').config()
@@ -15,8 +13,7 @@ const app = express();
 const router = require("./routes/user")
 
 
-//Passport Config
-//  require('./config/passport')(passport)
+
 
 
 //Static folder
