@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAa-qce7VNcLinP-pxCChACNmU6Jsp2ljg",
+    authDomain: "constructionclockin.firebaseapp.com",
+    databaseURL: "https://constructionclockin.firebaseio.com",
+    projectId: "constructionclockin",
+    storageBucket: "constructionclockin.appspot.com",
+    messagingSenderId: "1024598532082",
+    appId: "1:1024598532082:web:94592b6588064e35a5d56b",
+    measurementId: "G-GXGE9GPMQL"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
     <title>Construction Clockin</title>
 </head>
 
