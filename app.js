@@ -13,9 +13,6 @@ const app = express();
 const router = require("./routes/user")
 
 
-
-
-
 //Static folder
 app.use(express.static(path.join(__dirname, 'public')))
 
