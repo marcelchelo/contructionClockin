@@ -67,6 +67,7 @@ router.get('/',(req, res)=> {
 //USERTS API-- Shows users  ## For testing will be removed. 
 router.get("/users", (req,res) =>{
 
+    
     pool.query('select email from user',(err,rows,fields) =>{
         if(err) {
             console.log("Failed to query the user table" + err)
@@ -75,6 +76,7 @@ router.get("/users", (req,res) =>{
     })    
 
 })
+
 
 
 //Create Account form

@@ -27,9 +27,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 //Router must be used after body parser
 app.use(router)
-
 app.set('view engine', 'handlebars');
-
 
 
   
